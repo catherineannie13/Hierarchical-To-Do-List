@@ -8,9 +8,10 @@ from .auth import auth as auth_blueprint
 
 def create_app():
     app = Flask(__name__)
-    CORS(app)
+    CORS(app, supports_credentials=True)
     login_manager = LoginManager()
     login_manager.init_app(app)
+    login_manager.login_view = 'auth.login'
     app.config['SECRET_KEY'] = 'secret-key-goes-here'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'  
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

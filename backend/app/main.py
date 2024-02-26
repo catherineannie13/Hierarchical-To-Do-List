@@ -1,22 +1,21 @@
 from flask import Blueprint, request, session
 from .models import db, List, Item, User
+from flask_login import current_user, login_required
 
 main = Blueprint('main', __name__)
 
 @main.route('/lists', methods=['GET'])
+@login_required
 def get_lists():
-    user_id = session.get('user_id')
-    if not user_id:
-        return {'error': 'Login required'}, 401
+    user_id = current_user.get_id()
     user_lists = List.query.filter_by(user_id=user_id).all()
     lists = [{'id': lst.id, 'title': lst.title} for lst in user_lists]
     return {'lists': lists}, 200
 
 @main.route('/lists', methods=['POST'])
+@login_required
 def create_list():
-    user_id = session.get('user_id')
-    if not user_id:
-        return {'error': 'Login required'}, 401
+    user_id = current_user.get_id()
     data = request.json
     title = data.get('title')
     if not title:
@@ -27,10 +26,9 @@ def create_list():
     return {'message': 'List created successfully', 'list_id': new_list.id}, 201
 
 @main.route('/lists/<int:list_id>', methods=['PUT'])
+@login_required
 def update_list(list_id):
-    user_id = session.get('user_id')
-    if not user_id:
-        return {'error': 'Login required'}, 401
+    user_id = current_user.get_id()
     list = List.query.get(list_id)
     if not list or list.user_id != user_id:
         return {'error': 'List not found or unauthorized'}, 404
@@ -43,10 +41,9 @@ def update_list(list_id):
     return {'message': 'List updated successfully'}, 200
 
 @main.route('/lists/<int:list_id>', methods=['DELETE'])
+@login_required
 def delete_list(list_id):
-    user_id = session.get('user_id')
-    if not user_id:
-        return {'error': 'Login required'}, 401
+    user_id = current_user.get_id()
     list = List.query.get(list_id)
     if not list or list.user_id != user_id:
         return {'error': 'List not found or unauthorized'}, 404
@@ -55,10 +52,9 @@ def delete_list(list_id):
     return {'message': 'List deleted successfully'}, 200
 
 @main.route('/lists/<int:list_id>/items', methods=['GET'])
+@login_required
 def get_items(list_id):
-    user_id = session.get('user_id')
-    if not user_id:
-        return {'error': 'Login required'}, 401
+    user_id = current_user.get_id()
     list = List.query.get(list_id)
     if not list or list.user_id != user_id:
         return {'error': 'List not found or unauthorized'}, 404
@@ -66,10 +62,9 @@ def get_items(list_id):
     return {'items': items}, 200
 
 @main.route('/lists/<int:list_id>/items', methods=['POST'])
+@login_required
 def create_item(list_id):
-    user_id = session.get('user_id')
-    if not user_id:
-        return {'error': 'Login required'}, 401
+    user_id = current_user.get_id()
     list = List.query.get(list_id)
     if not list or list.user_id != user_id:
         return {'error': 'List not found or unauthorized'}, 404
@@ -83,10 +78,9 @@ def create_item(list_id):
     return {'message': 'Item created successfully', 'item_id': new_item.id}, 201
 
 @main.route('/lists/<int:list_id>/items/<int:item_id>', methods=['PUT'])
+@login_required
 def update_item(list_id, item_id):
-    user_id = session.get('user_id')
-    if not user_id:
-        return {'error': 'Login required'}, 401
+    user_id = current_user.get_id()
     item = Item.query.get(item_id)
     if not item or item.list.user_id != user_id:
         return {'error': 'Item not found or unauthorized'}, 404
@@ -101,10 +95,9 @@ def update_item(list_id, item_id):
     return {'message': 'Item updated successfully'}, 200
 
 @main.route('/lists/<int:list_id>/items/<int:item_id>', methods=['DELETE'])
+@login_required
 def delete_item(list_id, item_id):
-    user_id = session.get('user_id')
-    if not user_id:
-        return {'error': 'Login required'}, 401
+    user_id = current_user.get_id()
     item = Item.query.get(item_id)
     if not item or item.list_id != list_id or item.list.user_id != user_id:
         return {'error': 'Item not found or unauthorized'}, 404
@@ -113,10 +106,9 @@ def delete_item(list_id, item_id):
     return {'message': 'Item deleted successfully'}, 200
 
 @main.route('/lists/<int:list_id>/items/<int:item_id>/complete', methods=['PUT'])
+@login_required
 def mark_item_as_complete(list_id, item_id):
-    user_id = session.get('user_id')
-    if not user_id:
-        return {'error': 'Login required'}, 401
+    user_id = current_user.get_id()
     item = Item.query.get(item_id)
     if not item or item.list_id != list_id or item.list.user_id != user_id:
         return {'error': 'Item not found or unauthorized'}, 404
@@ -129,10 +121,9 @@ def mark_item_as_complete(list_id, item_id):
     return {'message': 'Item marked as complete'}, 200
 
 @main.route('/lists/<int:from_list_id>/items/<int:item_id>/move', methods=['PUT'])
+@login_required
 def move_item(from_list_id, item_id):
-    user_id = session.get('user_id')
-    if not user_id:
-        return {'error': 'Login required'}, 401
+    user_id = current_user.get_id()
     from_list = List.query.get(from_list_id)
     if not from_list or from_list.user_id != user_id:
         return {'error': 'Source list not found or unauthorized'}, 404

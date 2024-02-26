@@ -1,6 +1,7 @@
 from flask import Blueprint, request, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import db, User
+from flask_login import login_user, logout_user
 
 auth = Blueprint('auth', __name__)
 
@@ -28,10 +29,10 @@ def login():
     user = User.query.filter_by(username=username).first()
     if not user or not check_password_hash(user.password_hash, password):
         return {'error': 'Invalid username or password'}, 401
-    session['user_id'] = user.id
+    login_user(user)
     return {'message': 'Login successful'}, 200
 
 @auth.route('/logout', methods=['GET'])
 def logout():
-    session.pop('user_id', None)
+    logout_user()
     return {'message': 'Logout successful'}, 200
