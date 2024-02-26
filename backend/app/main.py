@@ -24,7 +24,7 @@ def create_list():
     new_list = List(title=title, user_id=user_id)
     db.session.add(new_list)
     db.session.commit()
-    return {'message': 'List created successfully'}, 201
+    return {'message': 'List created successfully', 'list_id': new_list.id}, 201
 
 @main.route('/lists/<int:list_id>', methods=['PUT'])
 def update_list(list_id):
@@ -80,7 +80,7 @@ def create_item(list_id):
     new_item = Item(content=content, list_id=list_id)
     db.session.add(new_item)
     db.session.commit()
-    return {'message': 'Item created successfully'}, 201
+    return {'message': 'Item created successfully', 'item_id': new_item.id}, 201
 
 @main.route('/lists/<int:list_id>/items/<int:item_id>', methods=['PUT'])
 def update_item(list_id, item_id):
