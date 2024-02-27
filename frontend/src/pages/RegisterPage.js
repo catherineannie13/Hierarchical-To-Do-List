@@ -18,10 +18,15 @@ const RegisterPage = () => {
     }
   };
 
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
+
   return (
     <div>
       {errorMessage && <div className="error">{errorMessage}</div>}
       <RegistrationForm onSubmit={handleRegistration} />
+      <button onClick={handleLoginClick}>Login</button>
     </div>
   );
 };

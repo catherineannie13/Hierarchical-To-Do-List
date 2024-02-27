@@ -16,7 +16,6 @@ class List(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    # Added cascade="all, delete-orphan" to ensure items are deleted when the list is deleted
     items = db.relationship('Item', backref='list', lazy=True, cascade="all, delete-orphan")
 
     def __repr__(self):

@@ -29,6 +29,15 @@ const logout = async () => {
   }
 };
 
+const isAuthenticated = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/is_authenticated`);
+    return response.data.isAuthenticated;
+  } catch (error) {
+    return false;
+  }
+};
+
 const getLists = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/lists`);
@@ -120,4 +129,4 @@ const moveItem = async (fromListId, itemId, toListId) => {
     }
 };
 
-export { register, login, logout, getLists, createList, updateList, deleteList, getItems, createItem, updateItem, deleteItem, markItemAsComplete, moveItem };
+export { register, login, logout, isAuthenticated, getLists, createList, updateList, deleteList, getItems, createItem, updateItem, deleteItem, markItemAsComplete, moveItem };

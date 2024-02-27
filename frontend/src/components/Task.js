@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Task = ({ task, onDelete }) => {
+const Task = ({ task, onDelete, onMove, lists }) => {
   const handleDelete = () => {
     onDelete(task.id); // Pass the task id to the parent component for deletion
   };
@@ -8,7 +8,7 @@ const Task = ({ task, onDelete }) => {
   return (
     <li>
       {task.content}
-      <button onClick={handleDelete}>Delete</button>
+      <button onClick={handleDelete}>✔</button>
     </li>
   );
 };

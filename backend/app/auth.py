@@ -1,7 +1,7 @@
 from flask import Blueprint, request, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import db, User
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 
 auth = Blueprint('auth', __name__)
 
@@ -37,3 +37,10 @@ def login():
 def logout():
     logout_user()
     return {'message': 'Logout successful'}, 200
+
+@auth.route('/is_authenticated', methods=['GET'])
+def is_authenticated():
+    if current_user.is_authenticated:
+        return {'isAuthenticated': True}, 200
+    else:
+        return {'isAuthenticated': False}, 401

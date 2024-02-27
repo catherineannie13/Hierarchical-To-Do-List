@@ -1,11 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AddTaskForm from '../components/AddTaskForm';
 import AddListForm from '../components/AddListForm';
 import List from '../components/List';
-import { getLists, deleteItem, deleteList } from '../ApiClient'; // Import the deleteItem function from your ApiClient
+import { getLists, deleteItem, deleteList, logout } from '../ApiClient'; // Import the deleteItem function from your ApiClient
 
 const DashboardPage = () => {
     const [lists, setLists] = useState([]);
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            await logout(); // Perform the logout operation
+            navigate('/login'); // Navigate to login after successful logout
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    };
 
     // Function to handle list creation
     const handleListCreated = async (newList) => {
@@ -72,6 +83,7 @@ const DashboardPage = () => {
     return (
         <div>
             <h1>Dashboard Page In Progress</h1>
+            <button onClick={handleLogout}>Logout</button>
             <AddListForm onListCreated={handleListCreated} />
             <AddTaskForm lists={lists} onTaskAdded={handleTaskAdded} />
             {lists.map((list) => (
