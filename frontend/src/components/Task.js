@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Task = ({ task, onDelete, onMove, lists }) => {
+const Task = ({ task, onDelete }) => {
   const handleDelete = () => {
     onDelete(task.id); // Pass the task id to the parent component for deletion
   };

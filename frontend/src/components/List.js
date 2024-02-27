@@ -32,7 +32,7 @@ const List = ({ list, onTaskDeleted, onListDeleted }) => {
     <div>
       <h2>
         {list.title}
-        <button onClick={handleDeleteList} style={{ marginLeft: '10px' }}>Delete List</button>
+        <button onClick={handleDeleteList}>Delete List</button>
       </h2>
       <ul>
         {tasks.map((task) => (

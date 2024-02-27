@@ -82,7 +82,7 @@ const DashboardPage = () => {
 
     return (
         <div>
-            <h1>Dashboard Page In Progress</h1>
+            <h1>To Do List</h1>
             <button onClick={handleLogout}>Logout</button>
             <AddListForm onListCreated={handleListCreated} />
             <AddTaskForm lists={lists} onTaskAdded={handleTaskAdded} />
