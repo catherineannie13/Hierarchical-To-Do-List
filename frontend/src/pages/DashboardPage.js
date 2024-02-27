@@ -2,17 +2,14 @@ import React, { useState, useEffect } from 'react';
 import AddTaskForm from '../components/AddTaskForm';
 import AddListForm from '../components/AddListForm';
 import List from '../components/List';
-import { getLists } from '../ApiClient';
+import { getLists, deleteItem, deleteList } from '../ApiClient'; // Import the deleteItem function from your ApiClient
 
 const DashboardPage = () => {
     const [lists, setLists] = useState([]);
 
     // Function to handle list creation
     const handleListCreated = async (newList) => {
-        // get list from newlist
         console.log('New list created:', newList);
-        // Add the new list to the existing lists
-        console.log('Lists:', lists);
         setLists([...lists, newList]);
     };
 
@@ -20,15 +17,44 @@ const DashboardPage = () => {
     const handleTaskAdded = (listId, newTask) => {
         setLists(lists.map(list => {
             if (list.id === parseInt(listId)) {
-                console.log('List found:', list.tasks);
-                // Ensure that tasks property is initialized and set to an array
                 const updatedList = { ...list, tasks: list.tasks ? [...list.tasks, newTask] : [newTask] };
-                console.log('Updated list:', updatedList.tasks);
                 return updatedList;
             }
             return list;
         }));
     };    
+
+    // Function to handle task deletion
+    const handleTaskDeleted = async (listId, taskId) => {
+        // Delete the task using the deleteItem function
+        await deleteItem(listId, taskId);
+
+        try {
+            // Update the lists state after deletion
+            setLists(lists.map(list => {
+                if (list.id === parseInt(listId)) {
+                    // Filter out the deleted task from the tasks array
+                    console.log(taskId, list.tasks)
+                    const tasksArray = Array.isArray(list.tasks) ? list.tasks : [];
+                    const updatedTasks = tasksArray.filter(task => task.id !== taskId);
+                    console.log('Updated tasks:', updatedTasks)
+                    return { ...list, tasks: updatedTasks };
+                }
+                return list;
+            }));
+        } catch (error) {
+            console.error('Error deleting task dynamically:', error);
+        }
+    };
+
+    // Function to handle list deletion
+    const handleListDeleted = async (listId) => {
+        // Call your API to delete the list here, for example:
+        await deleteList(listId);
+
+        // Update the lists state to filter out the deleted list
+        setLists(lists.filter(list => list.id !== listId));
+    };
 
     // Fetch lists when the component mounts
     useEffect(() => {
@@ -49,7 +75,7 @@ const DashboardPage = () => {
             <AddListForm onListCreated={handleListCreated} />
             <AddTaskForm lists={lists} onTaskAdded={handleTaskAdded} />
             {lists.map((list) => (
-                <List key={list.id} list={list} onTaskAdded={handleTaskAdded} />
+                <List key={list.id} list={list} onTaskDeleted={handleTaskDeleted} onListDeleted={handleListDeleted} />
             ))}
         </div>
     );

@@ -2,8 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { getItems } from '../ApiClient';
 import Task from './Task';
 
-const List = ({ list }) => {
+const List = ({ list, onTaskDeleted, onListDeleted }) => {
   const [tasks, setTasks] = useState([]);
+
+  const handleDeleteList = () => {
+    // Call the parent component's onListDeleted function with the list id
+    onListDeleted(list.id);
+  };
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -18,12 +23,20 @@ const List = ({ list }) => {
     fetchTasks();
   }, [list]);
 
+  const handleDeleteTask = (taskId) => {
+    // Call the parent component's onDelete function with the task id
+    onTaskDeleted(list.id, taskId);
+  };
+
   return (
     <div>
-      <h2>{list.title}</h2>
+      <h2>
+        {list.title}
+        <button onClick={handleDeleteList} style={{ marginLeft: '10px' }}>Delete List</button>
+      </h2>
       <ul>
         {tasks.map((task) => (
-          <Task key={task.id} task={task} />
+          <Task key={task.id} task={task} onDelete={handleDeleteTask} />
         ))}
       </ul>
     </div>

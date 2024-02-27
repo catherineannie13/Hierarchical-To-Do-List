@@ -23,7 +23,13 @@ def create_list():
     new_list = List(title=title, user_id=user_id)
     db.session.add(new_list)
     db.session.commit()
-    return {'message': 'List created successfully', 'list_id': new_list.id}, 201
+    return {
+        'message': 'List created successfully',
+        'list': {
+            'id': new_list.id,
+            'title': new_list.title,
+            'user_id': new_list.user_id  
+        }}, 201
 
 @main.route('/lists/<int:list_id>', methods=['PUT'])
 @login_required
@@ -43,7 +49,7 @@ def update_list(list_id):
 @main.route('/lists/<int:list_id>', methods=['DELETE'])
 @login_required
 def delete_list(list_id):
-    user_id = current_user.get_id()
+    user_id = int(current_user.get_id())
     list = List.query.get(list_id)
     if not list or list.user_id != user_id:
         return {'error': 'List not found or unauthorized'}, 404
@@ -97,7 +103,7 @@ def update_item(list_id, item_id):
 @main.route('/lists/<int:list_id>/items/<int:item_id>', methods=['DELETE'])
 @login_required
 def delete_item(list_id, item_id):
-    user_id = current_user.get_id()
+    user_id = int(current_user.get_id())
     item = Item.query.get(item_id)
     if not item or item.list_id != list_id or item.list.user_id != user_id:
         return {'error': 'Item not found or unauthorized'}, 404

@@ -8,7 +8,8 @@ const AddListForm = ({ onListCreated }) => {
     e.preventDefault();
     try {
       // Create a new list using the provided title
-      const newList = await createList({ title });
+      const response = await createList({ title });
+      const newList = response.list;
       onListCreated(newList); // Pass the new list data to the parent component
       setTitle(''); // Clear the input field after creating the list
     } catch (error) {
