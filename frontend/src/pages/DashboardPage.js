@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import AddTaskForm from '../components/AddTaskForm';
 import AddListForm from '../components/AddListForm';
 import List from '../components/List';
-import { getLists, deleteItem, deleteList, logout } from '../ApiClient'; // Import the deleteItem function from your ApiClient
+import { getLists, deleteItem, deleteList, logout, moveItem } from '../ApiClient'; // Import the deleteItem function from your ApiClient
 
 const DashboardPage = () => {
     const [lists, setLists] = useState([]);
@@ -67,6 +67,19 @@ const DashboardPage = () => {
         setLists(lists.filter(list => list.id !== listId));
     };
 
+    const handleTaskMoved = async (fromListId, taskId, toListId) => {
+        try {
+            await moveItem(fromListId, taskId, toListId);
+            // Update UI to reflect the task move
+            // This could involve re-fetching lists or manually adjusting the state to reflect the move
+            // For simplicity, we'll just re-fetch lists here, but you could optimize by directly adjusting the state
+            const listsData = await getLists();
+            setLists(listsData.lists);
+        } catch (error) {
+            console.error('Error moving task:', error);
+        }
+    };
+
     // Fetch lists when the component mounts
     useEffect(() => {
         const fetchLists = async () => {
@@ -87,7 +100,7 @@ const DashboardPage = () => {
             <AddListForm onListCreated={handleListCreated} />
             <AddTaskForm lists={lists} onTaskAdded={handleTaskAdded} />
             {lists.map((list) => (
-                <List key={list.id} list={list} onTaskDeleted={handleTaskDeleted} onListDeleted={handleListDeleted} />
+                <List key={list.id} list={list} onTaskDeleted={handleTaskDeleted} onListDeleted={handleListDeleted} onTaskMoved={handleTaskMoved} lists={lists} />
             ))}
         </div>
     );

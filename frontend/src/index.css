@@ -26,3 +26,7 @@ button:hover {
   background-color: #564caf;
   color: white;
 }
+
+select {
+  margin-left: 5px;
+}

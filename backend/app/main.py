@@ -129,7 +129,7 @@ def mark_item_as_complete(list_id, item_id):
 @main.route('/lists/<int:from_list_id>/items/<int:item_id>/move', methods=['PUT'])
 @login_required
 def move_item(from_list_id, item_id):
-    user_id = current_user.get_id()
+    user_id = int(current_user.get_id())
     from_list = List.query.get(from_list_id)
     if not from_list or from_list.user_id != user_id:
         return {'error': 'Source list not found or unauthorized'}, 404

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getItems } from '../ApiClient';
 import Task from './Task';
 
-const List = ({ list, onTaskDeleted, onListDeleted }) => {
+const List = ({ list, onTaskDeleted, onListDeleted, lists, onTaskMoved }) => {
   const [tasks, setTasks] = useState([]);
 
   const handleDeleteList = () => {
@@ -36,7 +36,7 @@ const List = ({ list, onTaskDeleted, onListDeleted }) => {
       </h2>
       <ul>
         {tasks.map((task) => (
-          <Task key={task.id} task={task} onDelete={handleDeleteTask} />
+          <Task key={task.id} task={task} onDelete={handleDeleteTask} onMove={onTaskMoved} listId={list.id} lists={lists} />
         ))}
       </ul>
     </div>
