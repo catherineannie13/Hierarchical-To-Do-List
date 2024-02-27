@@ -44,3 +44,8 @@ def is_authenticated():
         return {'isAuthenticated': True}, 200
     else:
         return {'isAuthenticated': False}, 401
+    
+@auth.route('/current_user', methods=['GET'])
+@login_required
+def get_current_user():
+    return {'username': current_user.username}, 200

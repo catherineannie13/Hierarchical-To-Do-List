@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import AddTaskForm from '../components/AddTaskForm';
 import AddListForm from '../components/AddListForm';
 import List from '../components/List';
-import { getLists, deleteItem, deleteList, logout, moveItem } from '../ApiClient'; // Import the deleteItem function from your ApiClient
+import { getLists, deleteItem, deleteList, logout, moveItem, getCurrentUserInfo } from '../ApiClient'; // Import the deleteItem function from your ApiClient
 
 const DashboardPage = () => {
     const [lists, setLists] = useState([]);
+    const [username, setUsername] = useState('');
     const navigate = useNavigate();
 
     const handleLogout = async () => {
@@ -93,9 +94,22 @@ const DashboardPage = () => {
         fetchLists();
     }, []);
 
+    useEffect(() => {
+        const fetchUserInfo = async () => {
+            try {
+                const userInfo = await getCurrentUserInfo();
+                setUsername(userInfo.username); // Set username
+            } catch (error) {
+                console.error('Failed to fetch user info:', error);
+            }
+        };
+
+        fetchUserInfo();
+    }, []);
+
     return (
         <div>
-            <h1>To Do List</h1>
+            <h1>{username}'s To Do List</h1>
             <button onClick={handleLogout}>Logout</button>
             <AddListForm onListCreated={handleListCreated} />
             <AddTaskForm lists={lists} onTaskAdded={handleTaskAdded} />

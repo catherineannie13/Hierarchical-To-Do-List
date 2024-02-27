@@ -129,4 +129,13 @@ const moveItem = async (fromListId, itemId, toListId) => {
     }
 };
 
-export { register, login, logout, isAuthenticated, getLists, createList, updateList, deleteList, getItems, createItem, updateItem, deleteItem, markItemAsComplete, moveItem };
+const getCurrentUserInfo = async () => {
+  try {
+      const response = await axios.get(`${API_BASE_URL}/current_user`);
+      return response.data;
+  } catch (error) {
+      throw error.response.data;
+  }
+};
+
+export { register, login, logout, isAuthenticated, getLists, createList, updateList, deleteList, getItems, createItem, updateItem, deleteItem, markItemAsComplete, moveItem, getCurrentUserInfo };
