@@ -54,7 +54,7 @@ def delete_list(list_id):
 @main.route('/lists/<int:list_id>/items', methods=['GET'])
 @login_required
 def get_items(list_id):
-    user_id = current_user.get_id()
+    user_id = int(current_user.get_id())
     list = List.query.get(list_id)
     if not list or list.user_id != user_id:
         return {'error': 'List not found or unauthorized'}, 404
@@ -64,9 +64,9 @@ def get_items(list_id):
 @main.route('/lists/<int:list_id>/items', methods=['POST'])
 @login_required
 def create_item(list_id):
-    user_id = current_user.get_id()
+    user_id = int(current_user.get_id())
     list = List.query.get(list_id)
-    if not list or list.user_id != user_id:
+    if not list and list.user_id != user_id:
         return {'error': 'List not found or unauthorized'}, 404
     data = request.json
     content = data.get('content')

@@ -15,7 +15,7 @@ const login = async (userData) => {
   try {
     const response = await axios.post(`${API_BASE_URL}/login`, userData);
     return response.data;
-  } catch (error) {
+  } catch (error) { 
     throw error.response.data;
   }
 };
