@@ -69,7 +69,7 @@ def get_items(list_id):
 
 @main.route('/lists/<int:list_id>/items', methods=['POST'])
 @login_required
-def create_item(list_id):
+def create_item(list_id, parent_id=None):
     user_id = int(current_user.get_id())
     list = List.query.get(list_id)
     if not list and list.user_id != user_id:
@@ -78,7 +78,7 @@ def create_item(list_id):
     content = data.get('content')
     if not content:
         return {'error': 'Item content is required'}, 400
-    new_item = Item(content=content, list_id=list_id)
+    new_item = Item(content=content, list_id=list_id, parent_id=parent_id)
     db.session.add(new_item)
     db.session.commit()
     return {'message': 'Item created successfully', 'item_id': new_item.id}, 201

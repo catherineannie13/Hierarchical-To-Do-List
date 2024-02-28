@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import AddTaskForm from '../components/AddTaskForm';
 import AddListForm from '../components/AddListForm';
 import List from '../components/List';
-import { getLists, deleteItem, deleteList, logout, moveItem, getCurrentUserInfo } from '../ApiClient'; // Import the deleteItem function from your ApiClient
+import { getLists, deleteItem, deleteList, logout, moveItem, getCurrentUserInfo, createItem } from '../ApiClient'; // Import the deleteItem function from your ApiClient
 
 const DashboardPage = () => {
     const [lists, setLists] = useState([]);
@@ -35,6 +35,21 @@ const DashboardPage = () => {
             return list;
         }));
     };    
+
+    // Function to handle adding a subtask
+    const handleAddSubtask = async (parentId, content, listId) => {
+        try {
+            const subtaskData = { content, parent_id: parentId };
+            const newSubtask = await createItem(listId, subtaskData);
+            
+            // Update the UI to reflect the new subtask
+            // This could involve re-fetching lists or manually updating the state
+            const listsData = await getLists();
+            setLists(listsData.lists);
+        } catch (error) {
+            console.error('Error adding subtask:', error);
+        }
+    };
 
     // Function to handle task deletion
     const handleTaskDeleted = async (listId, taskId) => {
@@ -72,9 +87,6 @@ const DashboardPage = () => {
     const handleTaskMoved = async (fromListId, taskId, toListId) => {
         try {
             await moveItem(fromListId, taskId, toListId);
-            // Update UI to reflect the task move
-            // This could involve re-fetching lists or manually adjusting the state to reflect the move
-            // For simplicity, we'll just re-fetch lists here, but you could optimize by directly adjusting the state
             const listsData = await getLists();
             setLists(listsData.lists);
         } catch (error) {
@@ -115,7 +127,7 @@ const DashboardPage = () => {
             <AddListForm onListCreated={handleListCreated} />
             <AddTaskForm lists={lists} onTaskAdded={handleTaskAdded} />
             {lists.map((list) => (
-                <List key={list.id} list={list} onTaskDeleted={handleTaskDeleted} onListDeleted={handleListDeleted} onTaskMoved={handleTaskMoved} lists={lists} />
+                <List key={list.id} list={list} onTaskDeleted={handleTaskDeleted} onListDeleted={handleListDeleted} onTaskMoved={handleTaskMoved} lists={lists} onAddSubtask={handleAddSubtask} />
             ))}
         </div>
     );
