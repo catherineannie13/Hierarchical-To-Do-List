@@ -104,9 +104,11 @@ const updateItem = async (listId, itemId, itemData) => {
   
 const deleteItem = async (listId, itemId) => {
     try {
+      console.log('Api client about to try deleting item', itemId, 'from list', listId, 'at', `${API_BASE_URL}/lists/${listId}/items/${itemId}`);
       const response = await axios.delete(`${API_BASE_URL}/lists/${listId}/items/${itemId}`);
       return response.data;
     } catch (error) {
+      console.log('Error deleting item:', error)
       throw error.response.data;
     }
 };

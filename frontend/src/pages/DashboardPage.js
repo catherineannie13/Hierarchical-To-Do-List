@@ -39,6 +39,7 @@ const DashboardPage = () => {
     // Function to handle task deletion
     const handleTaskDeleted = async (listId, taskId) => {
         // Delete the task using the deleteItem function
+        console.log('Deleting task:', taskId, 'from list:', listId);
         await deleteItem(listId, taskId);
 
         try {

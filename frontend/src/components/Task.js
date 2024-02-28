@@ -9,6 +9,10 @@ const Task = ({ task, onDelete, onMove, listId, lists }) => {
     }
   };
 
+  const handleDelete = () => {
+    onDelete(task.id);
+  }
+
   return (
     <li>
       {task.content}
@@ -19,7 +23,7 @@ const Task = ({ task, onDelete, onMove, listId, lists }) => {
         ))}
       </select>
       <button onClick={handleMove}>Move</button>
-      <button onClick={onDelete}>✔</button>
+      <button onClick={handleDelete}>✔</button>
     </li>
   );
 };

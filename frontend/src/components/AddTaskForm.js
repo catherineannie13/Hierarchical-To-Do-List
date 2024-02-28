@@ -13,6 +13,7 @@ const AddTaskForm = ({ lists, onTaskAdded }) => {
     }
     try {
       // Create a new task using the provided content and selected list
+      console.log('Creating task:', content, 'in list:', selectedList)
       const newItem = await createItem(selectedList, { content });
       // Clear the input field after creating the task
       setContent('');

@@ -105,8 +105,14 @@ def update_item(list_id, item_id):
 def delete_item(list_id, item_id):
     user_id = int(current_user.get_id())
     item = Item.query.get(item_id)
-    if not item or item.list_id != list_id or item.list.user_id != user_id:
-        return {'error': 'Item not found or unauthorized'}, 404
+    if not item:
+        return {'error': 'Item not found'}, 404
+    list = List.query.get(list_id)
+    item_list = List.query.get(item.list_id)
+    if item.list_id != list_id:
+        return {'error': f'Item not found in list, item list id was {item.list_id} title {item_list.title} and list id was {list_id} title {list.title}'}, 404
+    if item.list.user_id != user_id:
+        return {'error': 'Unauthorized'}, 403
     db.session.delete(item)
     db.session.commit()
     return {'message': 'Item deleted successfully'}, 200
