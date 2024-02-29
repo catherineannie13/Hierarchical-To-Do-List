@@ -21,14 +21,14 @@ const AddListForm = ({ onListCreated }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='addlist-form'>
       <input
         type="text"
         placeholder="Enter list title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <button type="submit">Create List</button>
+      <button type="submit" className='createlist-button'>Create List</button>
     </form>
   );
 };

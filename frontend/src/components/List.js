@@ -41,7 +41,7 @@ const List = ({ list, onTaskDeleted, onListDeleted, lists, onTaskMoved, onAddSub
     <div>
       <h2>
         {list.title}
-        <button onClick={handleDeleteList}>Delete List</button>
+        <button onClick={handleDeleteList} className='delete-button' id='delete-button-list'>Delete</button>
       </h2>
       <ul>
         {tasks.map((task) => (

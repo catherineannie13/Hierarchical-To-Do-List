@@ -127,7 +127,7 @@ const DashboardPage = () => {
     return (
         <div>
             <h1>{username}'s To Do List</h1>
-            <button onClick={handleLogout}>Logout</button>
+            <button onClick={handleLogout} className='logout-button'>Logout</button>
             <AddListForm onListCreated={handleListCreated} />
             <AddTaskForm lists={lists} onTaskAdded={handleTaskAdded} />
             {lists.map((list) => (

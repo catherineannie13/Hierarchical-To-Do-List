@@ -1,10 +1,11 @@
 body {
-  margin: 20px;
+  margin: 30px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #c3c2c2;
 }
 
 code {
@@ -12,26 +13,97 @@ code {
     monospace;
 }
 
-form {
+form, button, select, input {
   margin-left: 5px;
-  border-radius: 5%;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: #bdbdbd;
 }
 
-button {
-  margin-left: 5px;
-  border-radius: 5%;
-}
-
-button:hover {
-  background-color: #564caf;
-  color: white;
-}
-
-select {
-  margin-left: 5px;
+li {
+  list-style-type: "\1F44D";
 }
 
 ul {
   padding-left: 20px;
-  padding-top: 5px;
+  padding-top: 8px;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.task-form {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.delete-button {
+  background-color: #ff5a5a;
+  color: white;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.delete-button:hover {
+  background-color: #ff0000;
+}
+
+.subtask-button {
+  background-color: #564caf;
+  color: white;
+  margin-left: 10px;
+}
+
+.subtask-button:hover {
+  background-color: #433597;
+}
+
+.move-button {
+  background-color: #faa930;
+  color: white;
+}
+
+.move-button:hover {
+  background-color: #ff8c00;
+}
+
+.addtask-button {
+  background-color: #6dae5e;
+  color: white;
+}
+
+.addtask-button:hover {
+  background-color: #4b8f3d;
+}
+
+.createlist-button {
+  background-color: #549cc5;
+  color: white;
+}
+
+.createlist-button:hover {
+  background-color: #4491c8;
+}
+
+.logout-button {
+  background-color: #a6a6a6;
+  color: black;
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+
+.logout-button:hover {
+  background-color: #8f8f8f;
+}
+
+.addlist-form {
+  margin-bottom: 5px;
+}
+
+#delete-button-list {
+  margin-left: 10px;
 }

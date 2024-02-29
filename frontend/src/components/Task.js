@@ -47,36 +47,35 @@ const Task = ({ task, onDelete, onMove, listId, lists, onAddSubtask, parentTaskI
     return (
         <>
             <li>
-                <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+                <div className='task'>
                     <span>{task.content}</span>
-                    <button onClick={toggleSubtasks} style={{ marginLeft: '10px' }}>
+                    <button onClick={toggleSubtasks} className='subtask-button'>
                        {showSubtasks ? 'Hide' : 'Show'} Subtasks
                     </button>
-                    <button onClick={handleDelete} style={{ marginLeft: '10px' }}>Delete</button>
+                    <button onClick={handleDelete} className='delete-button'>Delete</button>
                     {parentTaskId === null && (
                         <>
                             <select 
                                 onChange={(e) => setSelectedListId(e.target.value)} 
                                 value={selectedListId} 
-                                style={{ marginLeft: '10px' }}
+                                className='move-select'
                             >
                                 <option value="">Move to...</option>
                                 {lists.filter(list => list.id !== listId).map(list => (
                                     <option key={list.id} value={list.id}>{list.title}</option>
                                 ))}
                             </select>
-                            <button onClick={handleMove} style={{ marginLeft: '5px' }}>Move</button>
+                            <button onClick={handleMove} className='move-button'>Move</button>
                         </>
                     )}
-                    <form onSubmit={handleAddSubtaskSubmit} style={{ display: 'flex', alignItems: 'center', marginLeft: '5px' }}>
+                    <form onSubmit={handleAddSubtaskSubmit} className='task-form'>
                         <input 
                             type="text" 
                             value={subtaskContent}
                             onChange={(e) => setSubtaskContent(e.target.value)}
                             placeholder="Subtask name"
-                            style={{ marginLeft: '5px' }}
                         />
-                        <button type="submit" style={{ marginLeft: '5px' }}>Add Subtask</button>
+                        <button type="submit" className='addtask-button'>Add Subtask</button>
                     </form>
                 </div>
                 {showSubtasks && subtasks && (

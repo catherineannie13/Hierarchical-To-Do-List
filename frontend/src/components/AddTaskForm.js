@@ -48,7 +48,7 @@ const AddTaskForm = ({ lists, onTaskAdded }) => {
           <option key={list.id} value={list.id}>{list.title}</option>
         ))}
       </select>
-      <button type="submit">Add Task</button>
+      <button type="submit" className='addtask-button'>Add Task</button>
     </form>
   );
 };
