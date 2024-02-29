@@ -5,6 +5,7 @@ const AddTaskForm = ({ lists, onTaskAdded }) => {
   const [content, setContent] = useState('');
   const [selectedList, setSelectedList] = useState('');
 
+  // When the form is submitted, create a new task
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!selectedList) {
@@ -12,13 +13,20 @@ const AddTaskForm = ({ lists, onTaskAdded }) => {
       return;
     }
     try {
-      // Create a new task using the provided content and selected list
-      console.log('Creating task:', content, 'in list:', selectedList)
-      const newItem = await createItem(selectedList, { content });
+
+      // Explicitly include parent_id as null for top-level tasks
+      const itemData = {
+        content: content,
+        parent_id: null  // Explicitly setting parent_id as null
+      };
+
+      console.log('Creating task:', content, 'in list:', selectedList, 'with parent_id:', itemData.parent_id);
+      const newItem = await createItem(selectedList, itemData);
+
       // Clear the input field after creating the task
       setContent('');
-      // Reset selected list
       setSelectedList('');
+
       // Invoke the onTaskAdded function passed as a prop with the list ID and new task object
       onTaskAdded(selectedList, newItem);
     } catch (error) {

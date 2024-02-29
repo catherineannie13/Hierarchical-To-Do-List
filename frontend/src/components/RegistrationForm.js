@@ -4,6 +4,7 @@ const RegistrationForm = ({ onSubmit }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit({ username, password });

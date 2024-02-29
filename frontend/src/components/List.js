@@ -6,15 +6,18 @@ const List = ({ list, onTaskDeleted, onListDeleted, lists, onTaskMoved, onAddSub
   const [tasks, setTasks] = useState([]);
 
   const handleDeleteList = () => {
+
     // Call the parent component's onListDeleted function with the list id
     onListDeleted(list.id);
   };
 
+  // Fetch tasks when the component mounts
   useEffect(() => {
     const fetchTasks = async () => {
       try {
         const tasksData = await getItems(list.id);
-        setTasks(tasksData.items);
+        console.log('Logging tasks:', tasksData.items);
+        setTasks(tasksData.items.filter(task => !task.parent_id));
       } catch (error) {
         console.error('Error fetching tasks:', error);
       }
@@ -24,12 +27,14 @@ const List = ({ list, onTaskDeleted, onListDeleted, lists, onTaskMoved, onAddSub
   }, [list]);
 
   const handleDeleteTask = (taskId) => {
+
     // Call the parent component's onDelete function with the task id
     onTaskDeleted(list.id, taskId);
   };
 
-  const handleAddSubtask = (taskId, content) => {
-    onAddSubtask(taskId, content, list.id);
+  // Function to handle adding a subtask
+  const handleAddSubtask = (parentId, content) => {
+    onAddSubtask(parentId, content, list.id);
   };
 
   return (

@@ -1,70 +1,73 @@
-# Getting Started with Create React App
+# **Hierarchical To-Do List Frontend**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This document outlines the setup and usage instructions for the frontend of a hierarchical to-do list application. The frontend is developed using React, a JavaScript library for building user interfaces, and communicates with a backend server for data management.
 
-## Available Scripts
+## **Getting Started**
 
-In the project directory, you can run:
+### **Prerequisites**
 
-### `npm start`
+- Node.js and npm (Node Package Manager)
+- A running instance of the backend server for the hierarchical to-do list
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### **Installation**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Copy the directory to your local machine.
+2. Navigate to the frontend directory:
+    
+    ```
+    cd frontend
+    
+    ```
+    
+3. Install the required npm packages:
+    
+    ```
+    npm install
+    
+    ```
+    
+4. Start the React application:
+    
+    ```
+    npm start
+    
+    ```
+    
 
-### `npm test`
+The application should open in your default web browser, typically at **`http://localhost:3000`**.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## **Application Structure**
 
-### `npm run build`
+├── package.json
+├── package-lock.json
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── ApiClient.js
+│   ├── axiosConfig.js
+│   ├── App.js
+│   ├── index.js
+│   └── index.css
+└── public/
+    ├── index.html
+    └── favicon.ico
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## **Features**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **User Authentication**: Supports logging in and out. The interface dynamically adjusts based on the user's authentication state.
+- **Dynamic List and Task Management**: Allows for the creation, modification, and deletion of lists and tasks. Tasks can be organized hierarchically as subtasks of other tasks.
+- **Interactive UI for Task Hierarchy**: Tasks can be expanded to view their subtasks, supporting an unlimited hierarchy depth.
+- **Drag-and-Drop**: (If implemented) Supports rearranging tasks through drag-and-drop interactions.
+- **Responsive Design**: Ensures a good user experience across various device sizes.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## **Key Components**
 
-### `npm run eject`
+- **LoginPage**: Manages user login.
+- **DashboardPage**: The main interface for interacting with to-do lists and tasks.
+- **TaskForm**: A form component for adding new tasks or subtasks.
+- **ListForm**: A form component for adding new lists.
+- **Task**: Represents a single task or subtask, including any hierarchical relationships.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## **API Integration**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The frontend communicates with the backend through various API endpoints to perform operations on lists and tasks. The **`ApiClient.js`** module centralizes these API calls, providing functions that other components can use to interact with the backend.

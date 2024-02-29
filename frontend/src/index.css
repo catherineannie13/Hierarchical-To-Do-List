@@ -30,3 +30,8 @@ button:hover {
 select {
   margin-left: 5px;
 }
+
+ul {
+  padding-left: 20px;
+  padding-top: 5px;
+}

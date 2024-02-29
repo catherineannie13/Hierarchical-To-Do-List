@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import AddTaskForm from '../components/AddTaskForm';
 import AddListForm from '../components/AddListForm';
 import List from '../components/List';
-import { getLists, deleteItem, deleteList, logout, moveItem, getCurrentUserInfo, createItem } from '../ApiClient'; // Import the deleteItem function from your ApiClient
+import { getLists, deleteItem, deleteList, logout, moveItem, getCurrentUserInfo, createItem } from '../ApiClient'; 
 
 const DashboardPage = () => {
     const [lists, setLists] = useState([]);
     const [username, setUsername] = useState('');
     const navigate = useNavigate();
 
+    // Function to handle logout
     const handleLogout = async () => {
         try {
             await logout(); // Perform the logout operation
@@ -41,9 +42,7 @@ const DashboardPage = () => {
         try {
             const subtaskData = { content, parent_id: parentId };
             const newSubtask = await createItem(listId, subtaskData);
-            
-            // Update the UI to reflect the new subtask
-            // This could involve re-fetching lists or manually updating the state
+
             const listsData = await getLists();
             setLists(listsData.lists);
         } catch (error) {
@@ -53,6 +52,7 @@ const DashboardPage = () => {
 
     // Function to handle task deletion
     const handleTaskDeleted = async (listId, taskId) => {
+
         // Delete the task using the deleteItem function
         console.log('Deleting task:', taskId, 'from list:', listId);
         await deleteItem(listId, taskId);
@@ -61,6 +61,7 @@ const DashboardPage = () => {
             // Update the lists state after deletion
             setLists(lists.map(list => {
                 if (list.id === parseInt(listId)) {
+
                     // Filter out the deleted task from the tasks array
                     console.log(taskId, list.tasks)
                     const tasksArray = Array.isArray(list.tasks) ? list.tasks : [];
@@ -77,13 +78,15 @@ const DashboardPage = () => {
 
     // Function to handle list deletion
     const handleListDeleted = async (listId) => {
-        // Call your API to delete the list here, for example:
+
+        // Call API to delete the list here
         await deleteList(listId);
 
         // Update the lists state to filter out the deleted list
         setLists(lists.filter(list => list.id !== listId));
     };
 
+    // Function to handle task movement
     const handleTaskMoved = async (fromListId, taskId, toListId) => {
         try {
             await moveItem(fromListId, taskId, toListId);
@@ -107,6 +110,7 @@ const DashboardPage = () => {
         fetchLists();
     }, []);
 
+    // Fetch user info when the component mounts
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
@@ -127,7 +131,14 @@ const DashboardPage = () => {
             <AddListForm onListCreated={handleListCreated} />
             <AddTaskForm lists={lists} onTaskAdded={handleTaskAdded} />
             {lists.map((list) => (
-                <List key={list.id} list={list} onTaskDeleted={handleTaskDeleted} onListDeleted={handleListDeleted} onTaskMoved={handleTaskMoved} lists={lists} onAddSubtask={handleAddSubtask} />
+                <List 
+                    key={list.id} 
+                    list={list} 
+                    onTaskDeleted={handleTaskDeleted} 
+                    onListDeleted={handleListDeleted} 
+                    onTaskMoved={handleTaskMoved} lists={lists} 
+                    onAddSubtask={handleAddSubtask} 
+                />
             ))}
         </div>
     );

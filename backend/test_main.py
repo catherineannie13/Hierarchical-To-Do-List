@@ -64,7 +64,7 @@ class MainTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
 
         # Get the ID of the newly created list
-        list_id = response.json['list_id']
+        list_id = response.json['list']['id']
 
         # Update the title of the list
         new_title = 'Updated Test List'
@@ -92,7 +92,7 @@ class MainTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
 
         # Get the ID of the newly created list
-        list_id = response.json['list_id']
+        list_id = response.json['list']['id']
 
         # Delete the list
         response = self.client.delete(f'/lists/{list_id}')
@@ -117,7 +117,7 @@ class MainTestCase(unittest.TestCase):
         # Create a new list
         response = self.client.post('/lists', json={'title': 'Test List'})
         self.assertEqual(response.status_code, 201)
-        list_id = response.json['list_id']
+        list_id = response.json['list']['id']
 
         # Create a new item in the list
         response = self.client.post(f'/lists/{list_id}/items', json={'content': 'Test Item 1'})
@@ -142,7 +142,7 @@ class MainTestCase(unittest.TestCase):
         # Create a new list
         response = self.client.post('/lists', json={'title': 'Test List'})
         self.assertEqual(response.status_code, 201)
-        list_id = response.json['list_id']
+        list_id = response.json['list']['id']
 
         # Create a new item in the list
         response = self.client.post(f'/lists/{list_id}/items', json={'content': 'Test Item 1'})
@@ -167,7 +167,7 @@ class MainTestCase(unittest.TestCase):
         # Create a new list
         response = self.client.post('/lists', json={'title': 'Test List'})
         self.assertEqual(response.status_code, 201)
-        list_id = response.json['list_id']
+        list_id = response.json['list']['id']
 
         # Create a new item in the list
         response = self.client.post(f'/lists/{list_id}/items', json={'content': 'Test Item 1'})
@@ -198,7 +198,7 @@ class MainTestCase(unittest.TestCase):
         # Create a new list
         response = self.client.post('/lists', json={'title': 'Test List'})
         self.assertEqual(response.status_code, 201)
-        list_id = response.json['list_id']
+        list_id = response.json['list']['id']
 
         # Create a new item in the list
         response = self.client.post(f'/lists/{list_id}/items', json={'content': 'Test Item 1'})
@@ -228,7 +228,7 @@ class MainTestCase(unittest.TestCase):
         # Create a new list
         response = self.client.post('/lists', json={'title': 'Test List'})
         self.assertEqual(response.status_code, 201)
-        list_id = response.json['list_id']
+        list_id = response.json['list']['id']
 
         # Create a new item in the list
         response = self.client.post(f'/lists/{list_id}/items', json={'content': 'Test Item 1'})
@@ -258,11 +258,11 @@ class MainTestCase(unittest.TestCase):
         # Create two new lists
         response = self.client.post('/lists', json={'title': 'Source List'})
         self.assertEqual(response.status_code, 201)
-        source_list_id = response.json['list_id']
+        source_list_id = response.json['list']['id']
 
         response = self.client.post('/lists', json={'title': 'Destination List'})
         self.assertEqual(response.status_code, 201)
-        destination_list_id = response.json['list_id']
+        destination_list_id = response.json['list']['id']
 
         # Create a new item in the source list
         response = self.client.post(f'/lists/{source_list_id}/items', json={'content': 'Test Item 1'})

@@ -27,7 +27,6 @@ class Item(db.Model):
     completed = db.Column(db.Boolean, default=False, nullable=False)
     list_id = db.Column(db.Integer, db.ForeignKey('list.id'), nullable=False)
     parent_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=True)
-    # Note: You might want to specify behavior for the deletion of parent items here as well
     children = db.relationship('Item', backref=db.backref('parent', remote_side=[id]), lazy=True)
 
     def __repr__(self):
