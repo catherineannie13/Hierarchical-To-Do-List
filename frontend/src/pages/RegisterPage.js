@@ -14,7 +14,7 @@ const RegisterPage = () => {
       // Redirect to login page on successful registration
       navigate('/login');
     } catch (error) {
-      setErrorMessage('Registration failed. Please try again.');
+      setErrorMessage('Username is already in use. Please choose a different username and try again.');
     }
   };
 

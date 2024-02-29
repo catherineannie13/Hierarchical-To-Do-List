@@ -104,6 +104,10 @@ ul {
   margin-bottom: 5px;
 }
 
+.register-button, .login-button {
+  margin-left: 0px;
+}
+
 #delete-button-list {
   margin-left: 10px;
 }

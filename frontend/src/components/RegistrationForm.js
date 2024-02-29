@@ -21,7 +21,7 @@ const RegistrationForm = ({ onSubmit }) => {
         <label>Password</label>
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </div>
-      <button type="submit">Register</button>
+      <button type="submit" className='register-button'>Register</button>
     </form>
   );
 };
