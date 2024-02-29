@@ -63,12 +63,12 @@ The backend server will start, typically on **`http://localhost:5000`**.
 
 ## **Backend Application Structure**
 
-├── app/
-│   ├── __init__.py
-│   ├── auth.py
-│   ├── main.py
-│   └── models.py
-├── test_auth.py
+├── app/\
+│   ├── __init__.py\
+│   ├── auth.py\
+│   ├── main.py\
+│   └── models.py\
+├── test_auth.py\
 └── test_main.py
 
 ## **Features**

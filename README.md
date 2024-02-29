@@ -63,28 +63,28 @@ The application should open in your default web browser, typically at **`http://
 
 ## **Application Structure**
 
-frontend/
-├── package.json
-├── package-lock.json
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── ApiClient.js
-│   ├── axiosConfig.js
-│   ├── App.js
-│   ├── index.js
-│   └── index.css
-└── public/
-    ├── index.html
-    └── favicon.ico
-    
-backend/
-├── app/
-│   ├── __init__.py
-│   ├── auth.py
-│   ├── main.py
-│   └── models.py
-├── test_auth.py
+frontend/\
+├── package.json\
+├── package-lock.json\
+├── src/\
+│   ├── components/\
+│   ├── pages/\
+│   ├── ApiClient.js\
+│   ├── axiosConfig.js\
+│   ├── App.js\
+│   ├── index.js\
+│   └── index.css\
+└── public/\
+    ├── index.html\
+    └── favicon.ico\
+\
+backend/\
+├── app/\
+│   ├── __init__.py\
+│   ├── auth.py\
+│   ├── main.py\
+│   └── models.py\
+├── test_auth.py\
 └── test_main.py
 
 

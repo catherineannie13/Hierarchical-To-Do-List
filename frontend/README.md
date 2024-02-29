@@ -38,18 +38,18 @@ The application should open in your default web browser, typically at **`http://
 
 ## **Application Structure**
 
-├── package.json
-├── package-lock.json
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── ApiClient.js
-│   ├── axiosConfig.js
-│   ├── App.js
-│   ├── index.js
-│   └── index.css
-└── public/
-    ├── index.html
+├── package.json\
+├── package-lock.json\
+├── src/\
+│   ├── components/\
+│   ├── pages/\
+│   ├── ApiClient.js\
+│   ├── axiosConfig.js\
+│   ├── App.js\
+│   ├── index.js\
+│   └── index.css\
+└── public/\
+    ├── index.html\
     └── favicon.ico
 
 ## **Features**
