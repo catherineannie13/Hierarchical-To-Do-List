@@ -2,6 +2,10 @@
 
 This comprehensive guide covers both the frontend and backend setups for a hierarchical to-do list application. The frontend is developed with React, while the backend uses Flask, offering a full-stack solution for managing tasks in a hierarchical structure.
 
+## **Demo**
+Find a demo of the app here:
+https://www.loom.com/share/f4a709bcff1a41c3b7c9af5582a7213c?sid=fcf13ec0-3c9d-4478-9a61-a1dbb84fbe8e.
+
 ## **Getting Started**
 
 ### **Backend Setup**
